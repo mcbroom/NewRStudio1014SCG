@@ -1,0 +1,381 @@
+---
+title: "Tutorial: Fun With Data! Part I"
+output: learnr::tutorial
+runtime: shiny_prerendered
+description: "Welcome to the Basics of Data Frames tutorial"
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Topic 1: Accessing and Using Built-In Data Sets
+
+R comes with many included data sets. Some R packages also come with data (R packages are groups of useful functions bundled together for specific purposes that we can download and use in R - we'll look at packages in another tutorial).
+
+To access and view built-in data sets in R we simply type the data set's name at the command prompt or in our script file.
+
+### Exercise: Access Built-in R Datasets
+
+Write the R code required to access and view the built-in R data set `iris`:
+
+```{r access-iris, exercise=TRUE}
+
+```
+
+```{r access-iris-hint}
+iris
+```
+
+### Exercise: Data, Data, Everywhere!!
+
+You'll notice there are many, many (150, actually...) rows of data in the `iris` dataset. Do we really need to see the entire dataset to get a feel for its variables, and the data in them? No... the answer is no we don't.
+
+R has several convenience functions that allow us to look at bits of the data, without needing to print it all out. 
+
+- `head` prints the column names and the first few rows of data. You can specify how many rows using the `n =` argument. For example, to view the first 5 rows of a dataset called "bob", use `head(bob, n=5)`. If you do not specify an number of rows to view, it defaults to 6.
+- `tail` prints the last few rows of a dataset. It also has an argument to specify how many rows to print out, just like `head`. And, just like `head`, if you do not specify a number of rows, it prints 6 by default.
+
+Write the R code required to view the first 10 rows, and the last 8 rows, of the `iris` data. 
+
+```{r rows-iris, exercise=TRUE}
+
+```
+
+```{r rows-iris-hint}
+head(iris, n = 10)
+
+tail(iris, n = 8)
+```
+
+
+### Exercise: What are the Datasets in R?
+
+Obviously to use this you need to know the names of the datasets in R. To get a list of the included datasets in R and a brief description of what they are about, use the `data` function:
+
+Write the R code required to access and view the built-in R data sets in base R:
+
+```{r all-data-list, exercise=TRUE}
+
+```
+
+```{r all-data-list-hint}
+data()
+```
+(why do we need to add `()` to the end of the function `data`? What happens if you don't? Try it in the code box above to see. If you don't understand what just happened, ask your workshop demonstrator or your lecturer.)
+
+***Important:*** R is case-sensitive, and spelling matters! To access an inbuilt dataset in R, you **must** type its name **exactly** as it appears in R. 
+
+### Exercise: Putting it All Together
+
+There is a dataset in R that contains data on the time between eruptions, and the duration of the eruption, for the Old Faithful geyser in Jellystone (Yellowstone!) National Park (Wyoming, USA). Find the name of this dataset using the `data` function, and then view the first and last 5 rows of the dataset.
+
+
+```{r find-old-faithful, exercise=TRUE, exercise.lines = 6}
+
+```
+
+```{r find-old-faithful-hint}
+data() # read down the description information until you find the one on yellowstone geyser eruptions
+
+head(faithful, n = 5)
+tail(faithful, n = 5)
+```
+
+
+
+## Topic 2: Accessing Variables and Observations in Datasets
+
+### Exercise: Accessing Variables (columns) and Observations (rows): Square bracket notation
+
+The standard data format in R represents variables as columns in a dataset. Observations taken on these variables are entered as rows.
+
+There are several ways to access variables (columns) and observations (rows) in R. The most fundamental way to access specific columns and rows in R is to use *square bracket notation*. 
+
+In square bracket notation, we use square brackets to access bits of a dataset by row and column locations, a little bit like how we use longitude and latitude to access specific locations on the planet. The left hand side of the square bracket picks the row number, and the right hand side picks the column. For example, if we had a dataset called  `bob`:
+
+-  `bob[10, 3]` picks the data point in 10th row and 3rd column;
+-  `bob[5, "Budget"]` picks the data point in the 5th row and the column called "Budget";
+-  `bob[5, ]` picks the 5th row and *all* columns (ie all data on the 5th row);
+-  `bob[, "Budget]` picks all rows in the column called "Budget";
+-  `bob[, 2]` picks all rows in the 2nd column.
+
+Note that in square bracket notation, you can also specify a range for the rows and columns. For example, suppose I wanted the first 5 rows (and all columns) of the dataset called `bob`. To do this, I would use the code:
+
+- `bob[1:5, ]`  Or,
+- `bob[c(1, 2, 3, 4, 5), ]`
+
+Or, perhaps I want the last 5 rows of data from `bob`. To do this, it is necessary to know how many rows `bob` has - let's suppose it is 100 :
+
+- `bob[96:100, ]` Or,
+- `bob[c(96, 97, 98, 99, 100), ]`
+
+(Note: can you see how this relates to the `head` and `tail` functions we saw previously?)
+
+We can do a similar thing for the columns. See the exercises below.
+
+**Use square bracket notation to:**
+
+1. Find the data point in the 5th row and 4th column of the `iris` data.
+
+
+```{r 5-4-iris, exercise=TRUE}
+
+```
+
+```{r 5-4-iris-hint}
+iris[5, 4]
+```
+
+2. Print out the 3rd row of the `iris` data.
+
+
+```{r 3rd-row-iris, exercise=TRUE}
+
+```
+
+```{r 3rd-row-iris-hint}
+iris[3, ]
+```
+
+3. Print out rows 3 to 10 inclusive of the `iris` data.
+
+
+```{r 3to10-row-iris, exercise=TRUE}
+
+```
+
+```{r 3to10-row-iris-hint}
+iris[3:10, ]
+```
+
+4. *Extension*: Print out the first 5 odd-numbered rows of the `iris` data.
+
+
+```{r odd5-row-iris, exercise=TRUE}
+
+```
+
+```{r odd5-row-iris-hint}
+iris[c(1, 3, 5, 7, 9), ]
+```
+
+5. Print out the first 5 rows of the `Sepal.Length` column from the `iris` data. (Note that R is case-sensitive, and you *must* spell the column name *exactly* as it appears in the `iris` dataset.)
+
+
+```{r 5rows-sepallength-iris, exercise=TRUE}
+
+```
+
+```{r 5rows-sepallength-iris-hint}
+iris[1:5, 1] # OR
+
+iris[1:5, "Sepal.Length"]
+```
+
+6. Print out the first 4 rows of the `Sepal.Length` and `Species` columns from the `iris` data. (Note that R is case-sensitive, and you *must* spell the column name *exactly* as it appears in the `iris` dataset.)
+
+
+```{r 4rows-sepalspecies-iris, exercise=TRUE}
+
+```
+
+```{r 4rows-sepalspecies-iris-hint}
+iris[1:4, c(1, 5)] # OR
+
+iris[1:4, c("Sepal.Length", "Species")]
+```
+
+7. *Extension* Determine the species of the last 20 observations in the `iris` dataset. [hint: the `dim` function will print out the dimensions (number of rows and number of columns) of a dataset. For example, if we had a dataset called `bob`, `dim(bob)` would tell us how many rows and columns `bob` has.]
+
+
+```{r last20-species, exercise=TRUE}
+
+```
+
+```{r last20-species-hint}
+
+dim(iris)  # 150 rows and 5 columns
+
+iris[131:150, "Species"]
+```
+
+
+## Topic 3: Summarising Datasets and Variables
+
+### Exercise: Summary Function
+### 
+
+The R function `summary` provides summary information about all variables in a dataset. You can also use it on individual variables in a dataset, and on specific rows and columns of a dataset. For example:
+
+- `summary(iris)` gives numerical summaries of numerical variables, and a count summary of categorical variables, in the dataset `iris`;
+- `summary(faithful)`
+- `summary(iris[, 1:4])` summarizes just the first 4 columns of `iris` 
+
+1. Summarize the first column of the `iris` data.
+
+
+```{r summary-1-iris, exercise=TRUE}
+
+```
+
+```{r summary-1-iris-hint}
+summary(iris[,  1])
+```
+
+
+2. What is the median geyser eruption time in the `faithful` data?
+
+
+```{r summary-median-eruption, exercise=TRUE}
+
+```
+
+```{r summary-median-eruption-hint}
+summary(faithful[, "eruptions"])
+```
+
+### Exercise: Accessing Variables Directly: $-sign Notation
+###
+
+Variables in R datasets can also be accessed directly using "dollar-sign" notation. For example, if we had a dataset called `bob`, and it had a variable in it called  `Budget`, we could access all the observations in this variable using the following code:
+
+- `bob$Budget`
+
+The benefit of this approach (over the square bracket notation) is that in RStudio, as soon as you add the `$` symbol to the dataset name, a drop down menu appears and you can select the variable from the list. 
+
+The dollar-sign notation only works for accessing variables in a dataset. If you want specific rows from a dataset, you still need to use the square bracket notation.
+
+1. Summarise the waiting times between geyser eruptions in the old faithful data set using dollar-sign notation:
+
+
+```{r summary-wait-dollar-eruption, exercise=TRUE}
+
+```
+
+```{r summary-wait-dollar-eruption-hint}
+summary(faithful$waiting)
+```
+
+
+### Exercise: Using Other Functions to Summarise Variables
+
+
+R has many functions (like `dim` and `summary`) that do a variety of things. Part of your learning journey through this course will be to learn some of these functions to do specific tasks.
+
+Some useful functions you can use right now are ones that calculate statistically interesting quantities - things like the mean of a variable (`mean`), the variance of a variable (`var`), the maximum value (`max`), the minimum value (`min`), and many more.
+
+These functions all work in a similar way to each other: you put the name of the variable inside the function like this:
+
+- `function(variable name)`
+
+So, for example, to calculate the mean value of petal lengths in the `iris` data, you would type:
+
+- `mean(iris$Petal.Length)`
+
+
+1. Use R to calculate the mean, variance, maximum, minimum, and range of the eruption times from the `faithful`
+data
+
+
+```{r functions-eruption, exercise=TRUE, exercise.lines = 8}
+
+```
+
+```{r functions-eruption-hint}
+mean(faithful$eruptions)
+var(faithful$eruptions)
+max(faithful$eruptions)
+min(faithful$eruptions)
+range(faithful$eruptions)
+```
+
+### Exercise: Assigning Objects Revisited
+
+
+Did you find the typing involved in the previous exercise a little bit repetitive? A simpler and easier way to achieve the same results is to first assign the eruptions variable to a new "object", and then use that object to work out the mean, variance, etc. We do this using our old friend, the assignment operator:  `<-`.
+
+It is like creating a copy of the variable, in something with a shorter and easier to use name. It is also good practice to do this, because some functions (or other things we might do) can change the data in a variable. By making a copy, giving it a new name, and using this copy, we keep the original data safe.
+
+*Remember, the way we assign a variable to a new object is using the assignment operator: `<-` It looks like a left arrow, and consists of a "less than" symbol followed by a "minus sign" (with no space between them). *
+
+We put the new name we want to use on the left of the assignment operator, and the name of the variable we want to put into it on the right hand side. Make sure your new name doesn't contain spaces or "special" characters like $,/ etc. It is good practice to give your new object a short and descriptive name.
+
+For example, in the previous exercise, we could assign the eruptions variable to a new object called `e.time` like this:
+
+`e.time <-faithful$eruptions`
+
+Now, we can use `e.time` instead of `faithful$eruptions` in our functions (eg `mean(e.time)`). This not only saves typing, it also protects the original data from any changes we might make (deliberately or accidentally). 
+
+1. Use R to calculate the mean, variance, maximum, minimum, and range of the petal length variable in the `iris` data, by first assigning the variable to a new object. Call the new object `p.length`.
+
+
+```{r assign-petal-functions, exercise=TRUE, exercise.lines = 8}
+
+```
+
+```{r assign-petal-functions-hint}
+p.length <- iris$Petal.Length
+
+mean(p.length)
+var(p.length)
+max(p.length)
+min(p.length)
+range(p.length)
+```
+
+
+
+### Quiz  
+
+Now try these questions to see how well you understand the topics we just discussed.
+
+```{r squiz}
+quiz(
+  question("Which function prints the first few rows of a dataset?",
+    answer("first"),
+    answer("top"),
+    answer("head", correct = TRUE),
+    answer("gander"),
+    allow_retry = TRUE
+  ),
+  question("Which function prints the last few rows of a dataset?",
+    answer("tail", correct = TRUE),
+    answer("bottom"),
+    answer("squiz"),
+    answer("end"),
+    allow_retry = TRUE
+  ),
+  question("If you wanted to list out all datasets in base R, which function should you use?",
+    answer("datasets"),
+    answer("list.data"),
+    answer("data", correct = TRUE),
+    answer("which.data"),
+    allow_retry = TRUE
+  ),
+  question("What would be the correct code to access the fist 5 rows of data from a dataset called  `fish`?",
+    answer("fish[, 1:5]"),
+    answer("here.fishy.fishy(fish)"),
+    answer("fish[1:5, ]", correct = TRUE),
+    answer("one.fish.two.fish(red.fish, blue.fish)"),
+    allow_retry = TRUE
+  ),
+  question("What would be the correct code to access the variable in the 3rd column (column name 'Edible') of a dataset called  `fish`? [pick all correct answers]",
+    answer("fish[, 3]", correct = TRUE),
+    answer("Edible$fish"),
+    answer("fish$edibel"),
+    answer("fish$Edible", correct = TRUE),
+    allow_retry = TRUE
+  ),
+  question("I have a dataset called 'Dogs'. It contains (in order) the variables dog breed (Breed), height (Height), weight (Weight), and an index of cuddliness (Cuddles) which takes values 1 (a little cuddly) to 100 (really very cuddly). The variable 'Cuddliness' is of most importance. What code would I use to create a summary of the Cuddliness variable? [pick all correct answers]",
+    answer("summary(Dogs$Cuddliness)", correct = TRUE),
+    answer("summary(Dogs[, 4]", correct = TRUE),
+    answer("summary(Dogs[, 'Cuddliness']", correct =TRUE),
+    answer("You've used 'cuddliness' too many times, and now it sounds weird"),
+    allow_retry = TRUE
+  )
+)
+```
+
